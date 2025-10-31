@@ -46,7 +46,7 @@ The system is built on a high-throughput, asynchronous architecture to ensure th
 ### Installation
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/your-username/PyNetGuard.git](https://github.com/your-username/PyNetGuard.git)
+    git clone https://github.com/carlovend/PyNetGuard.git
     cd PyNetGuard
     ```
 
