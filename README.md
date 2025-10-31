@@ -60,7 +60,7 @@ The system is built on a high-throughput, asynchronous architecture to ensure th
     ```bash
     pip install -r requirements.txt
     ```
-    *(You will need to create a `requirements.txt` file containing `scapy`, `requests`, and `python-dotenv`)*
+   
 
 ### Configuration
 1.  Create a file named `.env` in the root of the project directory.
