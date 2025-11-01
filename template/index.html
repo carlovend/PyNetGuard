@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NetSentry · Dashboard</title>
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <div>
+          <h1>NetSentry · Dashboard</h1>
+          <div class="sub">Allarmi in tempo reale con arricchimento IP</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="refresh">Aggiorna</button>
+        <button class="btn primary" id="liveToggle" aria-pressed="true">Live ON</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="toolbar">
+        <div class="search" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input id="q" placeholder="Filtra per IP, motivo, porta…" />
+        </div>
+        <span class="chip" id="count">0 risultati</span>
+      </div>
+      <div class="table-wrap">
+        <table id="alerts">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Motivo</th>
+              <th>IP sorgente</th>
+              <th>Porta</th>
+              <th>Dettagli</th>
+              <th>VirusTotal</th>
+            </tr>
+          </thead>
+          <tbody id="alerts-body"></tbody>
+        </table>
+        <div class="empty" id="empty">Nessun risultato.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

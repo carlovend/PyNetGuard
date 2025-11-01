@@ -9,7 +9,7 @@ import json
 from dotenv import load_dotenv  
 
 load_dotenv()
-
+DASHBOARD_API_URL = "http://127.0.0.1:8000/api/receive_alerts"
 alert_queue = queue.Queue()
 
 syn_tracker = {} 
@@ -103,7 +103,7 @@ def process_packet(packet):
 
 def alert_worker():
     """
-    Questo è il "Worker" potenziato a "Investigatore".
+    Questo è il Worker potenziato a "Investigatore".
     Prende gli allarmi dalla coda, li arricchisce con VirusTotal
     e salva i risultati.
     """
@@ -119,7 +119,7 @@ def alert_worker():
         "Accept": "application/json"
     }
     
-    print("✅ Worker 'Investigatore' (API) avviato. In attesa di lavoro...")
+    print("Worker 'Investigatore' (API) avviato. In attesa di lavoro...")
     
     while True:
         try:
@@ -163,7 +163,7 @@ def alert_worker():
            
             print(f"[WORKER] {console_msg}")
             
-            # salva il log JSON completo (ottimo per portfolio!)
+            
             enriched_log_entry = {
                 "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 "alert_reason": reason,
@@ -175,12 +175,19 @@ def alert_worker():
             
             with open("alerts_enriched.jsonl", "a") as f:
                 f.write(json.dumps(enriched_log_entry) + "\n")
+            try:
+                
+                requests.post(DASHBOARD_API_URL, json=enriched_log_entry, timeout=2)
+                print(f"[WORKER] Allarme inviato al dashboard.")
+            except requests.RequestException as e:
+                print(f"[WORKDASH] Errore invio al dashboard: {e}")
 
         except Exception as e:
             print(f"Errore grave nel worker: {e}")
         finally:
            
             alert_queue.task_done()
+       
 
 
 def main():
